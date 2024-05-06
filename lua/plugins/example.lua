@@ -9,11 +9,12 @@ if true then return {} end
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
 return {
-  -- Configure LazyVim to load gruvbox
+  { "nyoom-engineering/oxocarbon.nvim", name = "oxocarbon", priority = 1001 },
+
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox",
+      colorscheme = "oxocarbon",
     },
   },
 
