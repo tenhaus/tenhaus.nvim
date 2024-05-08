@@ -13,7 +13,7 @@ return {
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
   { "EdenEast/nightfox.nvim", opts = { options= {transparent = true} } },
   { "rose-pine/neovim", name = "rose-pine" },
-  { 'navarasu/onedark.nvim', opts = {style = "warmer", transparent = true, term_colors = true}},
+  { "navarasu/onedark.nvim", opts = {style = "warmer", transparent = true, term_colors = true}},
   {
     "scottmckendry/cyberdream.nvim",
     lazy = false,
@@ -29,7 +29,7 @@ return {
         })
     end,
   },
-  { 'Mofiqul/dracula.nvim', opts = {transparent_bg = true}},
+  { "Mofiqul/dracula.nvim", opts = {transparent_bg = true}},
   { "fcancelinha/northern.nvim", branch = "master", priority = 1000 },
   {
     "LazyVim/LazyVim",
@@ -38,19 +38,16 @@ return {
     },
   },
   {"xiyaowong/transparent.nvim", opts={}, enabled=false},
-
-
-
   {
-    'willothy/wezterm.nvim',
+    "willothy/wezterm.nvim",
     config = true
   },
   {
-    'akinsho/flutter-tools.nvim',
+    "akinsho/flutter-tools.nvim",
     lazy = false,
     dependencies = {
-        'nvim-lua/plenary.nvim',
-        'stevearc/dressing.nvim', -- optional for vim.ui.select
+        "nvim-lua/plenary.nvim",
+        "stevearc/dressing.nvim", -- optional for vim.ui.select
     },
     config = true,
   },
