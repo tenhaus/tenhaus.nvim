@@ -1,6 +1,6 @@
 -- since this is just an example spec, don't actually load anything here and return an empty spec
 -- stylua: ignore
-if true then return {} end
+--if true then return {} end
 
 -- every spec file under the "plugins" directory will be loaded automatically by lazy.nvim
 --
@@ -10,23 +10,69 @@ if true then return {} end
 -- * override the configuration of LazyVim plugins
 return {
   { "nyoom-engineering/oxocarbon.nvim", name = "oxocarbon", priority = 1001 },
-
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+  { "EdenEast/nightfox.nvim", opts = { options= {transparent = true} } },
+  { "rose-pine/neovim", name = "rose-pine" },
+  { 'navarasu/onedark.nvim', opts = {style = "warmer", transparent = true, term_colors = true}},
+  {
+    "scottmckendry/cyberdream.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+        require("cyberdream").setup({
+            -- Recommended - see "Configuring" below for more config options
+            transparent = true,
+            italic_comments = true,
+            hide_fillchars = true,
+            borderless_telescope = true,
+            terminal_colors = true,
+        })
+    end,
+  },
+  { 'Mofiqul/dracula.nvim', opts = {transparent_bg = true}},
+  { "fcancelinha/northern.nvim", branch = "master", priority = 1000 },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "oxocarbon",
+      colorscheme = "nordfox",
     },
   },
+  {"xiyaowong/transparent.nvim", opts={}, enabled=false},
 
-  -- change trouble config
+
+
   {
-    "folke/trouble.nvim",
-    -- opts will be merged with the parent spec
-    opts = { use_diagnostic_signs = true },
+    'willothy/wezterm.nvim',
+    config = true
   },
-
-  -- disable trouble
-  { "folke/trouble.nvim", enabled = false },
+  {
+    'akinsho/flutter-tools.nvim',
+    lazy = false,
+    dependencies = {
+        'nvim-lua/plenary.nvim',
+        'stevearc/dressing.nvim', -- optional for vim.ui.select
+    },
+    config = true,
+  },
+  -- change trouble config
+  --  {
+  --    "folke/trouble.nvim",
+  --    -- opts will be merged with the parent spec
+  --    dependencies = { "nvim-tree/nvim-web-devicons" },
+  --    opts = { use_diagnostic_signs = true },
+  --      init = function()
+  --        require("lazyvim.util").lsp.on_attach(function(_, buffer)
+  --        vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
+  --        vim.keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
+  --        vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
+  --        vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
+  --        vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
+  --        vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
+  --        end)
+  --      end
+  --
+  --    }
+  --  },
 
   -- override nvim-cmp and add cmp-emoji
   {
@@ -60,16 +106,21 @@ return {
       },
     },
   },
+  -- Add rust tools
+  { "simrat39/rust-tools.nvim" },
 
   -- add pyright to lspconfig
   {
     "neovim/nvim-lspconfig",
-    ---@class PluginLspOpts
     opts = {
-      ---@type lspconfig.options
       servers = {
-        -- pyright will be automatically installed with mason and loaded with lspconfig
         pyright = {},
+        rust_analyzer = {
+          checkOnSave = true,
+          on_attach = function(client, bufnr)
+            vim.lsp.inlay_hint.enable(bufnr)
+          end,
+        },
       },
     },
   },
