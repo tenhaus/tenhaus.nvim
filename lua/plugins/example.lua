@@ -8,46 +8,50 @@
 -- * add extra plugins
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
+vim.g.minimalist_disable_background = true
+
 return {
   { "nyoom-engineering/oxocarbon.nvim", name = "oxocarbon", priority = 1001 },
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-  { "EdenEast/nightfox.nvim", opts = { options= {transparent = true} } },
+  { "EdenEast/nightfox.nvim", opts = { options = { transparent = true } } },
   { "rose-pine/neovim", name = "rose-pine" },
-  { "navarasu/onedark.nvim", opts = {style = "warmer", transparent = true, term_colors = true}},
+  { "navarasu/onedark.nvim", opts = { style = "warmer", transparent = true, term_colors = true } },
   {
     "scottmckendry/cyberdream.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-        require("cyberdream").setup({
-            -- Recommended - see "Configuring" below for more config options
-            transparent = true,
-            italic_comments = true,
-            hide_fillchars = true,
-            borderless_telescope = true,
-            terminal_colors = true,
-        })
+      require("cyberdream").setup({
+        -- Recommended - see "Configuring" below for more config options
+        transparent = true,
+        italic_comments = true,
+        hide_fillchars = true,
+        borderless_telescope = true,
+        terminal_colors = true,
+      })
     end,
   },
-  { "Mofiqul/dracula.nvim", opts = {transparent_bg = true}},
+  { "Mofiqul/dracula.nvim", opts = { transparent_bg = true, colors = { selection = "#111111" } } },
   { "fcancelinha/northern.nvim", branch = "master", priority = 1000 },
+  { "ofirgall/ofirkai.nvim", branch = "exp" },
+  { "kar9222/minimalist.nvim" },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "nordfox",
+      colorscheme = "dracula",
     },
   },
-  {"xiyaowong/transparent.nvim", opts={}, enabled=false},
+  { "xiyaowong/transparent.nvim", opts = {}, enabled = false },
   {
     "willothy/wezterm.nvim",
-    config = true
+    config = true,
   },
   {
     "akinsho/flutter-tools.nvim",
     lazy = false,
     dependencies = {
-        "nvim-lua/plenary.nvim",
-        "stevearc/dressing.nvim", -- optional for vim.ui.select
+      "nvim-lua/plenary.nvim",
+      "stevearc/dressing.nvim", -- optional for vim.ui.select
     },
     config = true,
   },
@@ -112,6 +116,7 @@ return {
     opts = {
       servers = {
         pyright = {},
+        --pyright = {},
         rust_analyzer = {
           checkOnSave = true,
           on_attach = function(client, bufnr)
