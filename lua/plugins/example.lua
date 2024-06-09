@@ -41,11 +41,11 @@ return {
       colorscheme = "dracula",
     },
   },
-  { "xiyaowong/transparent.nvim", opts = {}, enabled = false },
   {
-    "willothy/wezterm.nvim",
-    config = true,
+    -- amongst your other plugins
+    { "akinsho/toggleterm.nvim", version = "*", config = true },
   },
+  { "xiyaowong/transparent.nvim", opts = {}, enabled = false },
   {
     "akinsho/flutter-tools.nvim",
     lazy = false,
