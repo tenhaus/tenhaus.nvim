@@ -16,6 +16,13 @@ return {
   { "EdenEast/nightfox.nvim", opts = { options = { transparent = true } } },
   { "rose-pine/neovim", name = "rose-pine" },
   { "navarasu/onedark.nvim", opts = { style = "warmer", transparent = true, term_colors = true } },
+  { "ellisonleao/gruvbox.nvim", priority = 1000, config = true, opts = { transparent_mode = true } },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
   {
     "scottmckendry/cyberdream.nvim",
     lazy = false,
@@ -38,7 +45,7 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "dracula",
+      colorscheme = "tokyonight-night",
     },
   },
   {
