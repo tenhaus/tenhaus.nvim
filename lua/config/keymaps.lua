@@ -8,3 +8,5 @@ local map = LazyVim.safe_keymap_set
 map("n", "<leader>tg", ":!task generate<cr>", { desc = "dart generate" })
 map("n", "<leader>ts", ":!task simulator<cr>", { desc = "open simulator" })
 map("n", "<leader>td", ":!task dev<cr>", { desc = "start dev" })
+map("n", "<tab>", ":BufferLineCycleNext<cr>")
+map("n", "<S-tab>", ":BufferLineCyclePrev<cr>")
