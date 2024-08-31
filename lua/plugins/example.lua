@@ -8,50 +8,129 @@
 -- * add extra plugins
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
-vim.g.minimalist_disable_background = true
-
+--
 return {
-  { "nyoom-engineering/oxocarbon.nvim", name = "oxocarbon", priority = 1001 },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-  { "EdenEast/nightfox.nvim", opts = { options = { transparent = true } } },
-  { "rose-pine/neovim", name = "rose-pine" },
-  { "navarasu/onedark.nvim", opts = { style = "warmer", transparent = true, term_colors = true } },
-  { "ellisonleao/gruvbox.nvim", priority = 1000, config = true, opts = { transparent_mode = true } },
   {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    opts = {},
-  },
-  {
-    "scottmckendry/cyberdream.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      require("cyberdream").setup({
-        -- Recommended - see "Configuring" below for more config options
-        transparent = true,
-        italic_comments = true,
-        hide_fillchars = true,
-        borderless_telescope = true,
-        terminal_colors = true,
+    "akinsho/bufferline.nvim",
+    event = "VeryLazy",
+    keys = {
+      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle Pin" },
+      { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete Non-Pinned Buffers" },
+      { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "Delete Other Buffers" },
+      { "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete Buffers to the Right" },
+      { "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete Buffers to the Left" },
+      { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+      { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+      { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
+      { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
+      { "[B", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
+      { "]B", "<cmd>BufferLineMoveNext<cr>", desc = "Move buffer next" },
+    },
+    opts = {
+      options = {
+      -- stylua: ignore
+      close_command = function(n) LazyVim.ui.bufremove(n) end,
+      -- stylua: ignore
+      right_mouse_command = function(n) LazyVim.ui.bufremove(n) end,
+        diagnostics = "nvim_lsp",
+        always_show_bufferline = false,
+        diagnostics_indicator = function(_, _, diag)
+          local icons = LazyVim.config.icons.diagnostics
+          local ret = (diag.error and icons.Error .. diag.error .. " " or "")
+            .. (diag.warning and icons.Warn .. diag.warning or "")
+          return vim.trim(ret)
+        end,
+        offsets = {
+          {
+            filetype = "neo-tree",
+            text = "Neo-tree",
+            highlight = "Directory",
+            text_align = "left",
+          },
+        },
+        ---@param opts bufferline.IconFetcherOpts
+        get_element_icon = function(opts)
+          return LazyVim.config.icons.ft[opts.filetype]
+        end,
+      },
+    },
+    config = function(_, opts)
+      require("bufferline").setup(opts)
+      -- Fix bufferline when restoring a session
+      vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
+        callback = function()
+          vim.schedule(function()
+            pcall(nvim_bufferline)
+          end)
+        end,
       })
     end,
   },
-  { "Mofiqul/dracula.nvim", opts = { transparent_bg = true, colors = { selection = "#111111" } } },
-  { "fcancelinha/northern.nvim", branch = "master", priority = 1000 },
-  { "ofirgall/ofirkai.nvim", branch = "exp" },
-  { "kar9222/minimalist.nvim" },
+    {"nvim-neo-tree/neo-tree.nvim", config = true, opts = {filesystem = {
+        filtered_items = {
+            hide_by_pattern = {
+                "*.g.dart",
+                "*.freezed.dart"
+            }
+        }
+    }}},
+  -- { "nyoom-engineering/oxocarbon.nvim", name = "oxocarbon", priority = 1001 },
+   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+   { "EdenEast/nightfox.nvim", opts = { options = { transparent = true } } },
+  -- { "rose-pine/neovim", name = "rose-pine" },
+   { "slugbyte/lackluster.nvim" },
+  -- { "nanotech/jellybeans.vim" },
+   { "aktersnurra/no-clown-fiesta.nvim", opts = { transparent = true } },
+  -- { "paulo-granthon/hyper.nvim" },
+  -- { "p00f/alabaster.nvim" },
+  -- { "shaunsingh/nord.nvim" },
+   { "navarasu/onedark.nvim", opts = { style = "warmer", transparent = true, term_colors = true } },
+   { "ellisonleao/gruvbox.nvim", priority = 1000, config = true, opts = { transparent_mode = true } },
+   { "tiagovla/tokyodark.nvim" },
+     {'projekt0n/caret.nvim'},
+   { "Yazeed1s/minimal.nvim", priority = 1000 },
+  -- {
+  --   "folke/tokyonight.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   opts = {},
+  -- },
+  -- {
+  --   "scottmckendry/cyberdream.nvim",
+  --   lazy = false,
+  --   priority = 1000,
+  --   config = function()
+  --     require("cyberdream").setup({
+  --       -- Recommended - see "Configuring" below for more config options
+  --       transparent = true,
+  --       italic_comments = true,
+  --       hide_fillchars = true,
+  --       borderless_telescope = true,
+  --       terminal_colors = true,
+  --     })
+  --   end,
+  -- },
+  -- { "Mofiqul/dracula.nvim", opts = { transparent_bg = true, colors = { selection = "#111111" } } },
+  -- { "fcancelinha/northern.nvim", branch = "master", priority = 1000 },
+  -- { "ofirgall/ofirkai.nvim", branch = "exp" },
+  -- { "kar9222/minimalist.nvim" },
+  -- { "0xstepit/flow.nvim" },
+  -- { "aliqyan-21/darkvoid.nvim", opts = { transparent = true } },
+  -- { "catppuccin/nvim" },
+  -- { "rebelot/kanagawa.nvim" },
+  -- { "ray-x/aurora" },
+  -- { "projekt0n/github-nvim-theme" },
+  -- { "projekt0n/github-nvim-theme" },
+  -- { "ayu-theme/ayu-vim" },
+  -- { "sjl/badwolf" },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "tokyonight-night",
+      colorscheme = "minimal-base16",
     },
   },
-  {
-    -- amongst your other plugins
-    { "akinsho/toggleterm.nvim", version = "*", config = true },
-  },
+  -- amongst your other plugins
+  { "akinsho/toggleterm.nvim", version = "*", config = true },
   { "xiyaowong/transparent.nvim", opts = {}, enabled = false },
   {
     "akinsho/flutter-tools.nvim",
@@ -61,6 +140,21 @@ return {
       "stevearc/dressing.nvim", -- optional for vim.ui.select
     },
     config = true,
+  },
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    lazy = false,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = true,
+  },
+    {
+    "lukas-reineke/indent-blankline.nvim",
+    opts = {
+      enabled = false,
+    },
   },
   -- change trouble config
   --  {
@@ -121,6 +215,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
+      inlay_hints = { enabled = false },
       servers = {
         pyright = {},
         --pyright = {},
