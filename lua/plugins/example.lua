@@ -75,7 +75,10 @@ return {
         }
     }}},
   -- { "nyoom-engineering/oxocarbon.nvim", name = "oxocarbon", priority = 1001 },
-   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+   { "catppuccin/nvim", name = "catppuccin" },
+    {"steguiosaur/fullerene.nvim"},
+    {"killitar/obscure.nvim"},
+    {"Verf/deepwhite.nvim"},
    { "EdenEast/nightfox.nvim", opts = { options = { transparent = true } } },
   -- { "rose-pine/neovim", name = "rose-pine" },
    { "slugbyte/lackluster.nvim" },
@@ -85,7 +88,7 @@ return {
   -- { "p00f/alabaster.nvim" },
   -- { "shaunsingh/nord.nvim" },
    { "navarasu/onedark.nvim", opts = { style = "warmer", transparent = true, term_colors = true } },
-   { "ellisonleao/gruvbox.nvim", priority = 1000, config = true, opts = { transparent_mode = true } },
+   { "ellisonleao/gruvbox.nvim",  config = true, opts = { transparent_mode = true } },
    { "tiagovla/tokyodark.nvim" },
      {'projekt0n/caret.nvim'},
    { "Yazeed1s/minimal.nvim", priority = 1000 },
@@ -152,9 +155,6 @@ return {
   },
     {
     "lukas-reineke/indent-blankline.nvim",
-    opts = {
-      enabled = false,
-    },
   },
   -- change trouble config
   --  {
